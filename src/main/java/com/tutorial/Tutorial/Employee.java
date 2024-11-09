@@ -1,37 +1,55 @@
 package com.tutorial.Tutorial;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 /**
  * Owner - Arora Consulting Private Limited
  * Author - rohit
  * Project - Tutorial
  * Package - com.tutorial.Tutorial
- * Created_on - November 08 - 2024
- * Created_at - 20:23
+ * Created_on - November 09 - 2024
+ * Created_at - 20:44
  */
 
-@Service
+@Entity
 public class Employee {
 
-    private String name;
-    private int age;
+    @Id
+    private int id;
+    private String eName;
+    private boolean isActive;
+    private double salary;
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getAge() {
-        return age;
+    public String geteName() {
+        return eName;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void seteName(String eName) {
+        this.eName = eName;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 }
