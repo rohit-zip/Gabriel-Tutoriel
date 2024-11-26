@@ -16,14 +16,15 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/book")
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/add")
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    @PostMapping("/{authorId}")
+    public Book addBook(@RequestBody Book book, @PathVariable int authorId) {
+        return bookService.addBook(book, authorId);
     }
 
     @GetMapping("/get-book/{id}")
@@ -45,5 +46,15 @@ public class BookController {
     @PutMapping("/{id}")
     public Book updateBook(@PathVariable int id, @RequestBody Book book) {
         return bookService.updateBook(id, book);
+    }
+
+    @GetMapping("/find/{author}/{name}")
+    public List<Book> getByAuthorAndName(@PathVariable String author, @PathVariable String name) {
+        return bookService.getByAuthorAndName(author, name);
+    }
+
+    @GetMapping("/like/{name}")
+    public List<Book> getByNameLike(@PathVariable String name) {
+        return bookService.getByNameLike(name);
     }
 }

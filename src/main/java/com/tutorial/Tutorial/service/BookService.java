@@ -1,12 +1,13 @@
 package com.tutorial.Tutorial.service;
 
+import com.tutorial.Tutorial.entity.Author;
 import com.tutorial.Tutorial.entity.Book;
+import com.tutorial.Tutorial.repository.AuthorRepository;
 import com.tutorial.Tutorial.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Author - rohit
@@ -22,10 +23,14 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Book addBook(Book book) {
-        // save book to database
-        Book response = bookRepository.save(book);
-        return response;
+    @Autowired
+    private AuthorRepository authorRepository;
+
+    public Book addBook(Book book, int authorId) {
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new RuntimeException("Author not found with given Id"));
+        book.setAuthor(author);
+        return bookRepository.save(book);
     }
 
     public Book getBook(int id) {
@@ -56,5 +61,13 @@ public class BookService {
         response.setAuthor(book.getAuthor());
         response.setYear(book.getYear());
         return bookRepository.save(response);
+    }
+
+    public List<Book> getByAuthorAndName(String author, String name) {
+        return bookRepository.findByName(author);
+    }
+
+    public List<Book> getByNameLike(String name) {
+        return bookRepository.findByNameContainingIgnoreCase(name);
     }
 }

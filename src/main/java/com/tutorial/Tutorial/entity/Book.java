@@ -1,5 +1,7 @@
 package com.tutorial.Tutorial.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +27,12 @@ public class Book {
 
     //@Column(name = "book_name")
     private String name;
-    private String author;
     private Long year;
+
+    @ManyToOne
+    @JsonBackReference
+    private Author author;
+
+    // one author has many books
+    // one book belongs to one author
 }
